@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
 
-public class Main
+import org.katas.graph.DecisionBuilder;
+
+public class SvgGraphMain
 {
 	public static void main(String[] args) {
 		checkDirectoriesExist();
@@ -22,14 +24,14 @@ public class Main
 
 		var files = SvgReader.getAllSvgs(INPUT_DIR);
 
-		SvgClassifierIfElse cc = new SvgClassifierIfElse();
 		files.forEach(file -> {
 			System.out.println(file.getName());
-			int category = cc.getCategory(reader.readSvgFile(file));
+			int category = DecisionBuilder.testSvg(reader.readSvgFile(file));
+			System.out.printf("File: %s \nCategory assigned: %d\n" , file.getName(), category);
 			outputFile(file, category);
 		});
 
-		String[] assessArgs = {" ", "d"};
+		String[] assessArgs = {};
 		Assess.main(assessArgs);
 	}
 
@@ -55,7 +57,7 @@ public class Main
 	private static void checkDirectoriesExist() {
 		File inputDir = checkDirectoryExists(INPUT_DIR);
 		checkDirContainsSvgs(inputDir);
-		OUTPUT_DIRS_ALL.forEach(Main::checkDirectoryExists);
+		OUTPUT_DIRS_ALL.forEach(SvgGraphMain::checkDirectoryExists);
 	}
 
 	private static void checkDirContainsSvgs(File directory) {
