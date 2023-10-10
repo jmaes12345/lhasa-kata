@@ -98,3 +98,28 @@ public int getCategory(Path file) {
 	return -1;
 }
 ```
+
+### Output
+We want to you to copy the input files into the appropriate output directories depending on the category assigned to them.
+Directory pattern is shown below; also seen in the test-data folder. Put this anywhere on the filesystem but the default is
+> C:/kata-svg
+* Input
+	* All files start in here, copy them into the relevant output folders:
+* Output
+	* Cat1
+	* Cat2
+	* Cat3
+	* Unclassified
+
+### Testing your implementation
+We are providing an executable jar that will test the outcome of your implementation.
+Run with Java 17, if you do not have Java then we can copy your output somewhere that does.
+In order to use it, you need to run your implementation to copy the files from input director to output directories.
+Once done, if you are using the default location of 'C:/kata-svg' you can run the jar:
+> java -jar svg-1.0-SNAPSHOT.jar
+> 
+If you are using a custom location for the folder structure, pass the absolute path to the root directory as the first argument to the jar:
+> java -jar svg-1.0-SNAPSHOT.jar "C:/myLocation/else where"
+> 
+#### JUnit
+For those programming in Java, the tests can be run by JUnit through your IDE as well as via the executable jar. 
