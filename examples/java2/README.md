@@ -8,9 +8,11 @@ OrientDB studio running standalone, on the default location of localhost:2424
 * Make note of the root password you set
 * Create a new database called "kata1", if you use the default root user, use the password you set when first starting orientDB studio
 * Build the database decision tree via 
->org.katas.graph.DbServiceTest.buildSvgDecisionTree
+> org.katas.graph.DbServiceTest.buildSvgDecisionTree
 
-Default GUI is at http://192.168.0.100:2480/studio/index.html
+Default GUI is at http://localhost:2480/studio/index.html
+Using the Graph Editor view gives you  the visual representation of the graph.
+You need to change some settings to get human readable properties (for example name) showing on the visualisation.
 > select * from start
 ## To run the test application
 * Requires Java 17

@@ -10,6 +10,7 @@ import static org.katas.graph.SvgConstants.decision;
 import static org.katas.graph.SvgConstants.edge_No;
 import static org.katas.graph.SvgConstants.edge_Yes;
 import static org.katas.graph.SvgConstants.greaterThan;
+import static org.katas.graph.SvgConstants.green;
 import static org.katas.graph.SvgConstants.name;
 import static org.katas.graph.SvgConstants.numericComparator;
 import static org.katas.graph.SvgConstants.only;
@@ -85,6 +86,19 @@ class DbServiceTest
 	}
 
 	private void anyRectangles_True(OrientGraph db, Vertex anyRectangles) {
+		var anyText = anyTextNode(db);
+		anyRectangles.addEdge(edge_Yes, anyText);
+
+		var anyGreenRectangle = db.addVertex(decision);
+		anyText.addEdge(edge_Yes, anyGreenRectangle);
+		anyGreenRectangle.property(name, "Any green rectangle");
+		anyGreenRectangle.property(selection, any);
+		anyGreenRectangle.property(shape, rectangle);
+		anyGreenRectangle.property(color, green);
+
+		var anyGreenRectangleYes = db.addVertex(outcome);
+		anyGreenRectangle.addEdge(edge_Yes, anyGreenRectangleYes);
+		anyGreenRectangleYes.property(category, 1);
 	}
 
 	private void anyRectangles_False(OrientGraph db, Vertex anyRectangles) {
@@ -112,6 +126,7 @@ class DbServiceTest
 	private Vertex anyTextNode(OrientGraph db) {
 		var anyText = db.addVertex(decision);
 		anyText.property(name, "Any text");
+		anyText.property(selection, any);
 		anyText.property(shape, text);
 		return anyText;
 	}

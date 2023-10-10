@@ -166,21 +166,22 @@ public class DecisionBuilder
 	}
 
 	public static boolean testForAll(List<SVGElement> elements, Vertex v, List<BiPredicate<SVGElement, Vertex>> predicate) {
-		// TODO - Not sure if we need this or how to do.
+		// TODO - Not sure if we need this
 		return false;
 	}
 
 
 	private static boolean testColor(SVGElement svgElement, Vertex v) {
 		String dbColour = (String) v.property(SvgConstants.color).value();
-		Color color = mapColor(dbColour);
-		return color.equals(svgElement.getPresAbsolute("fill").getColorValue());
+		Color expectedColor = mapColor(dbColour);
+		Color svgColor = svgElement.getPresAbsolute("fill").getColorValue();
+		return expectedColor.equals(svgColor);
 	}
 
 	public static Color mapColor(String dbString) {
 		return switch (dbString) {
 			case "blue" -> Color.BLUE;
-			case "green" -> Color.GREEN;
+			case "green" -> new Color(0, 128, 0);
 			case "red" -> Color.RED;
 			default -> throw new IllegalStateException("Unexpected value: " + dbString);
 		};
@@ -189,7 +190,9 @@ public class DecisionBuilder
 	public static boolean testShape(SVGElement el, Vertex v) {
 		var shape = v.property(SvgConstants.shape);
 		if (shape.isPresent()) {
-			return el.getClass().getName().equals(getElementClass((String) shape.value()));
+			var svgShapeClassName = el.getClass().getName();
+			var expectedShapeClassName = getElementClass((String) shape.value());
+			return svgShapeClassName.equals(expectedShapeClassName);
 		}
 		return false;
 	}
