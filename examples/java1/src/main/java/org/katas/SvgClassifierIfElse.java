@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.List;
 
 import com.kitfox.svg.Circle;
+import com.kitfox.svg.Ellipse;
+import com.kitfox.svg.Line;
 import com.kitfox.svg.Rect;
 import com.kitfox.svg.SVGElement;
 import com.kitfox.svg.Text;
@@ -49,42 +51,18 @@ public class SvgClassifierIfElse
 					}
 					else {
 						System.out.println("No Green rectangle");
-						// TODO question this one
-						if (elements.size() > 1) {
-							System.out.println("More than one shape");
-							return 1;
-						}
-						else {
-							System.out.println("One shape");
-							if (anyStraightLine(elements)) {
-								System.out.println("Straight line");
-							}
-							else {
-								System.out.println("No straight line");
-								if (anyCurvedLines(elements)) {
-									System.out.println("Curved line");
-								}
-								else {
-									System.out.println("No curved lines");
-								}
-							}
-						}
+						return moreThanOneShapeTree(elements);
 					}
 				}
 				else {
 					System.out.println("No text");
-					if (elements.size() > 1) {
-						// Any straight lines
-					}
-					else {
-						System.out.println("One shape, is a rectangle");
-						return 1;
-					}
+					return moreThanOneShapeTree(elements);
 				}
 			}
 			else {
 				System.out.println("No rectangles");
 				if (anyText(elements)) {
+					System.out.println("Text exists");
 					if (textContains(elements, "lhasa")) {
 						return 1;
 					} else {
@@ -92,19 +70,83 @@ public class SvgClassifierIfElse
 					}
 				}
 				else {
+					System.out.println("No text exists");
 					return 2;
 				}
 			}
 		}
+	}
+
+	private int moreThanOneShapeTree(List<SVGElement> elements) {
+		if (elements.size() > 1) {
+			System.out.println("More than one shape");
+			if (anyStraightLine(elements)) {
+				System.out.println("Straight line");
+				if (lineLongerThan(100, elements)) {
+					return 2;
+				}
+				else {
+					return 3;
+				}
+			}
+			else {
+				System.out.println("No straight line");
+				if (anyCurvedLines(elements)) {
+					System.out.println("Curved line");
+					return curvedLineBranch(elements);
+				}
+				else {
+					System.out.println("No curved lines");
+					return noCurvedLineBranch(elements);
+				}
+			}
+		}
+		else {
+			System.out.println("One shape, is a rectangle");
+			return 1;
+		}
+	}
+
+	private boolean lineLongerThan(int length, List<SVGElement> elements) {
+		for (SVGElement o : elements) {
+			if (o instanceof Line line) {
+				var x1 = line.getPresAbsolute("x1").getIntValue();
+				var x2 = line.getPresAbsolute("x2").getIntValue();
+				int xDelta = x2 - x1;
+				var y1 = line.getPresAbsolute("y1").getIntValue();
+				var y2 = line.getPresAbsolute("y2").getIntValue();
+				int yDelta = y2 - y1;
+				var svgLength = Math.hypot(xDelta, yDelta);
+				return svgLength > length;
+			}
+		}
+		return false;
+	}
+
+	private int noCurvedLineBranch(List<SVGElement> elements) {
+		return -1;
+	}
+
+	private int curvedLineBranch(List<SVGElement> elements) {
 		return -1;
 	}
 
 	private boolean anyCurvedLines(List<SVGElement> elements) {
-		return true;
+		for (SVGElement o : elements) {
+			if (o instanceof Ellipse) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean anyStraightLine(List<SVGElement> elements) {
-		return true;
+		for (SVGElement o : elements) {
+			if (o instanceof Line) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean rectangleWithColour(List<SVGElement> elements, Color colour) {
