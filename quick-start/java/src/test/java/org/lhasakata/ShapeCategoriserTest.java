@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.lhasakata.assess.AssessUtils;
 
 /**
  * Copyright © 2023 Lhasa Limited
@@ -68,5 +69,20 @@ public class ShapeCategoriserTest
 	private static Stream<Arguments> detailTest() {
 		var testCases = getTestCases(ROOT_DIR + "/" + INPUT_FOLDER);
 		return testCases.stream().map(tc -> Arguments.of(tc.get(0), tc.get(1)));
+	}
+
+	@Test
+	void advancedStats() {
+		var confusionMatrix = new int[3][3];
+		confusionMatrix[0][0] = 1;
+		confusionMatrix[0][1] = 2;
+		confusionMatrix[0][2] = 3;
+		confusionMatrix[1][0] = 4;
+		confusionMatrix[1][1] = 5;
+		confusionMatrix[1][2] = 6;
+		confusionMatrix[2][0] = 7;
+		confusionMatrix[2][1] = 8;
+		confusionMatrix[2][2] = 9;
+		AssessUtils.advancedStats(confusionMatrix);
 	}
 }

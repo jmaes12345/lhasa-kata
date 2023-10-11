@@ -61,4 +61,31 @@ public class AssessUtils
 
 		return testCases;
 	}
+
+	public static void advancedStats(int[][] confusionMatrix) {
+		double accuracy = 0.1;
+		double precision = 0.2;
+		double recall = 0.3;
+		double f1 = 0.4;
+		System.out.printf("""
+				========================Evaluation Metrics========================
+					# of classes:    3
+					Accuracy:        %f
+					Precision:       %f
+					Recall:          %f
+					F1 Score:        %f
+					Precision, recall & F1: macro-averaged (equally weighted avg. of 3 classes)
+				""", accuracy, precision, recall, f1);
+
+		System.out.printf("""
+				=========================Confusion Matrix=========================
+							Cat1	Cat2	Cat3
+				-----------------------------------
+				Cat1	|	%d		%d		%d
+				Cat2	|	%d		%d		%d
+				Cat3	|	%d		%d		%d
+				""", confusionMatrix[0][0], confusionMatrix[0][1], confusionMatrix[0][2],
+				confusionMatrix[1][0], confusionMatrix[1][1], confusionMatrix[1][2],
+				confusionMatrix[2][0], confusionMatrix[2][1], confusionMatrix[2][2]);
+	}
 }
