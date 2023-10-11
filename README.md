@@ -33,7 +33,10 @@ The resulting categories in our workflow match the ones for the real classificat
 
 Each example file is a simple example for each of the paths and has an expected category. The test data files are for checking your code “in the wild” with more complex objects.
 
-For simplicity, the colours used to start with will be named, as will shapes.
+For simplicity, the colours used will be named, as will shape elements. For example:
+* color uses "red" rather than "#FF0000".
+* circles use "circle" rather than "ellipsis" or "path".
+* rectangles use "rect" rather than "polygon" or "path".
 
 The workflow looks like this:
 
@@ -47,18 +50,20 @@ The first decision point asks if there are “any red circles”.
 *	If no, continue.
 
 To be able to answer this question, we need to:
-a)	Pass in your input file/folder to your code
-b)	Read the contents of your input file
-c)	Check for any red circles
+- (a)	Pass in your input file/folder to your code
+- (b)	Read the contents of your input file
+- (c)	Check for any red circles
 
-Part A is a common task required in software development, and there will be plenty of help for this available online if required.
+#### _There are some quick start helper projects for Python, JavaScript and Java in the [repo](https://github.com/jmaes12345/lhasa-kata/tree/main/quick-start)._
 
-There are a few options you could take for part B – either reading the file manually to parse the components present or using a library to read the file for you. To allow you to focus on the logic of the workflow rather than file reading, I would recommend using a library if possible. Some good libraries would be:
+Part (a) is a common task required in software development, and there will be plenty of help for this available online if required.
+
+There are a few options you could take for part (b) – either reading the file manually to parse the components present or using a library to read the file for you. To allow you to focus on the logic of the workflow rather than file reading, I would recommend using a library if possible. Some good libraries would be:
 *	For Python, [Beautiful Soup](https://pypi.org/project/beautifulsoup4/) or [svgelements](https://pypi.org/project/svgelements/)
-*	For JavaScript, [svg-parser](https://www.npmjs.com/package/svg-parser)
+*	For JavaScript, [svg-parser](https://www.npmjs.com/package/svg-parser) or [xml2js](https://www.npmjs.com/package/xml2js)
 *	For Java, [svgSalamander](https://central.sonatype.com/artifact/guru.nidi.com.kitfox/svgSalamander)
 
-Once your code can read in the files, now you’re ready for part C – the first part of the workflow!
+Once your code can read in the files, now you’re ready for part (c) – the first part of the workflow!
 
 ### The First Decision in the Tree
 The first example file you have contains the following information:
@@ -98,3 +103,28 @@ public int getCategory(Path file) {
 	return -1;
 }
 ```
+
+### Output
+We want to you to copy the input files into the appropriate output directories depending on the category assigned to them.
+Directory pattern is shown below; also seen in the test-data folder. Put this anywhere on the filesystem but the default is
+> C:/kata-svg
+* Input
+	* All files start in here, copy them into the relevant output folders:
+* Output
+	* Cat1
+	* Cat2
+	* Cat3
+	* Unclassified
+
+### Testing your implementation
+We are providing an executable jar that will test the outcome of your implementation.
+Run with Java 17, if you do not have Java then we can copy your output somewhere that does.
+In order to use it, you need to run your implementation to copy the files from input director to output directories.
+Once done, if you are using the default location of 'C:/kata-svg' you can run the jar:
+> java -jar svg-1.0-SNAPSHOT.jar
+> 
+If you are using a custom location for the folder structure, pass the absolute path to the root directory as the first argument to the jar:
+> java -jar svg-1.0-SNAPSHOT.jar "C:/myLocation/else where"
+> 
+#### JUnit
+For those programming in Java, the tests can be run by JUnit through your IDE as well as via the executable jar. 
