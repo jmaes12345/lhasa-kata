@@ -32,10 +32,10 @@ def determine_category(file_path):
 # Copy the SVG file to its respective sub-folder based on its category
 def copy_file_to_sub_folder(file, category):
     old_path = os.path.join(base_dir, "input", file)
-    new_path = os.path.join(base_dir, category, file)
+    new_path = os.path.join(base_dir, "output",  category, file)
 
     # Create the sub-folder if it doesn't exist
-    os.makedirs(os.path.join(base_dir, category), exist_ok=True)
+    os.makedirs(os.path.join(base_dir, "output", category), exist_ok=True)
 
     # Copy the file
     shutil.copy2(old_path, new_path)
@@ -43,9 +43,9 @@ def copy_file_to_sub_folder(file, category):
 
 
 def process_svg_files():
-    for file in os.listdir(base_dir):
+    for file in os.listdir(os.path.join(base_dir, "input")):
         if file.endswith('.svg'):
-            category = determine_category(os.path.join(base_dir, file))
+            category = determine_category(os.path.join(base_dir, "input", file))
             category_str = ""
             # Convert category number to string
             switcher = {
