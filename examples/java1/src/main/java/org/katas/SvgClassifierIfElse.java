@@ -91,13 +91,13 @@ public class SvgClassifierIfElse
 			}
 			else {
 				System.out.println("No straight line");
-				if (anyCurvedLines(elements)) {
-					System.out.println("Curved line");
-					return curvedLineBranch(elements);
+				if (anyEllipse(elements)) {
+					System.out.println("Ellipse exists");
+					return anyEllipseBranch(elements);
 				}
 				else {
-					System.out.println("No curved lines");
-					return noCurvedLineBranch(elements);
+					System.out.println("No ellipse");
+					return noEllipseBranch(elements);
 				}
 			}
 		}
@@ -125,15 +125,71 @@ public class SvgClassifierIfElse
 		return true;
 	}
 
-	private int noCurvedLineBranch(List<SVGElement> elements) {
-		return -1;
+	private int noEllipseBranch(List<SVGElement> elements) {
+		if (anyShapeOpacityGreaterThan(0.5, elements)) {
+			if (elements.size() > 5) {
+				return 1;
+			} else {
+				return 2;
+			}
+		}
+		else {
+			return 3;
+		}
 	}
 
-	private int curvedLineBranch(List<SVGElement> elements) {
-		return -1;
+	private boolean anyShapeOpacityGreaterThan(double opacity, List<SVGElement> elements) {
+		for (SVGElement o : elements) {
+			var svgOpacity = o.getPresAbsolute("opacity").getDoubleValue();
+			if (svgOpacity > opacity) {
+				return true;
+			}
+		}
+		return false;
 	}
 
-	private boolean anyCurvedLines(List<SVGElement> elements) {
+	private int anyEllipseBranch(List<SVGElement> elements) {
+		if (anyEllipseHeightGreaterThanOrEqual(50, elements)) {
+			return 3;
+		}
+		else {
+			if (anyRectangleWithAreaGreaterThanOrEqual(300, elements)) {
+				return 1;
+			}
+			else {
+				if (elements.size() > 5) {
+					return 2;
+				} else {
+					return 3;
+				}
+			}
+		}
+	}
+
+	private boolean anyRectangleWithAreaGreaterThanOrEqual(int area, List<SVGElement> elements) {
+		for (SVGElement o : elements) {
+			if (o instanceof Rect rect) {
+				var width = rect.getPresAbsolute("width").getIntValue();
+				var height = rect.getPresAbsolute("height").getIntValue();
+				var svgArea = width * height;
+				return svgArea >= area;
+			}
+		}
+		return false;
+	}
+
+	private boolean anyEllipseHeightGreaterThanOrEqual(int height, List<SVGElement> elements) {
+		for (SVGElement o : elements) {
+			if (o instanceof Ellipse ellipse) {
+				var svgYRadius = ellipse.getPresAbsolute("ry").getIntValue();
+				var svgHeight = svgYRadius * 2;
+				return svgHeight >= height;
+			}
+		}
+		return false;
+	}
+
+	private boolean anyEllipse(List<SVGElement> elements) {
 		for (SVGElement o : elements) {
 			if (o instanceof Ellipse) {
 				return true;
