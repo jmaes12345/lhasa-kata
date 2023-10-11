@@ -82,7 +82,7 @@ public class SvgClassifierIfElse
 			System.out.println("More than one shape");
 			if (anyStraightLine(elements)) {
 				System.out.println("Straight line");
-				if (lineLongerThan(100, elements)) {
+				if (allLineLongerThan(100, elements)) {
 					return 2;
 				}
 				else {
@@ -107,7 +107,7 @@ public class SvgClassifierIfElse
 		}
 	}
 
-	private boolean lineLongerThan(int length, List<SVGElement> elements) {
+	private boolean allLineLongerThan(int length, List<SVGElement> elements) {
 		for (SVGElement o : elements) {
 			if (o instanceof Line line) {
 				var x1 = line.getPresAbsolute("x1").getIntValue();
@@ -117,10 +117,12 @@ public class SvgClassifierIfElse
 				var y2 = line.getPresAbsolute("y2").getIntValue();
 				int yDelta = y2 - y1;
 				var svgLength = Math.hypot(xDelta, yDelta);
-				return svgLength > length;
+				if (svgLength <= length) {
+					return false;
+				}
 			}
 		}
-		return false;
+		return true;
 	}
 
 	private int noCurvedLineBranch(List<SVGElement> elements) {
