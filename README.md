@@ -54,7 +54,7 @@ a)	Pass in your input file/folder to your code
 b)	Read the contents of your input file
 c)	Check for any red circles
 
-#### _There are some quick start helper projects for Python, JavaScript and Java in the repo._
+#### _There are some quick start helper projects for Python, JavaScript and Java in the [repo](https://github.com/jmaes12345/lhasa-kata/tree/main/quick-start)._
 
 Part A is a common task required in software development, and there will be plenty of help for this available online if required.
 
