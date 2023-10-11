@@ -43,6 +43,10 @@ public class SvgIfElseMain
 	}
 
 	private static File categoryToOutputDir(int category, String filename) {
+		if (false)
+		{
+			filename = insertCategoryIntoFileName(category, filename);
+		}
 		switch (category) {
 			case 3: return new File(CAT3_DIR + "/" + filename);
 			case 2: return new File(CAT2_DIR + "/" + filename);
@@ -50,6 +54,24 @@ public class SvgIfElseMain
 			case -1:
 			default: return new File(UNCLASSIFIED_DIR + "/" + filename);
 		}
+	}
+
+	/**
+	 * Use to add category to file name
+	 */
+	private static String insertCategoryIntoFileName(int category, String filename)
+	{
+		int lastDotIndex = filename.lastIndexOf('.');
+		String nameWithoutExtension = filename.substring(0, lastDotIndex);
+		String fileTypeSuffix = filename.substring(lastDotIndex);
+		String categorySuffix = switch (category)
+		{
+			case 3 -> "-III";
+			case 2 -> "-II";
+			case 1 -> "-I";
+			default -> "-Unclassified";
+		};
+		return nameWithoutExtension + categorySuffix + fileTypeSuffix;
 	}
 
 	private static void checkDirectoriesExist() {
