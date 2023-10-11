@@ -64,8 +64,8 @@ public class AssessUtils
 		List<List<String>> testCases = Arrays.stream(files)
 				.map(file -> {
 					String filename = file.getName();
-					var chunks = filename.split(" "); // TODO - change to hyphen
-					String cat = chunks[chunks.length - 1].split("\\.")[0];
+					var chunks = filename.split("-");
+					String cat = chunks[chunks.length - 1].split("\\.")[0].trim();
 					return List.of(filename, cat);
 				}).toList();
 
