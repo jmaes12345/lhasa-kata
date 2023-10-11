@@ -45,10 +45,17 @@ def generate_random_svg(filename):
             y3 = random.randint(20, 180)
             dwg.add(dwg.path(d="M {} {} Q {} {} {} {}".format(x1, y1, x2, y2, x3, y3), stroke="black", fill="none", stroke_width=2, opacity=opacity))
 
+        num_ellipses = random.randint(1, 10)
+        if num_ellipses > 5:
+            ellipse_cx = random.randint(20, 180)
+            ellipse_cy = random.randint(20, 180)
+            ellipse_rx = random.randint(10, 90)
+            ellipse_ry = random.randint(10, 90)
+            dwg.add(dwg.ellipse(center=(ellipse_cx, ellipse_cy), rx=ellipse_rx, ry=ellipse_ry, fill=element_colour, opacity=opacity))
     dwg.save()
 
 
 # Generate three random SVG files
-for i in range(30):
+for i in range(60, 80):
     filename = f"random_svg_{i + 1}.svg"
     generate_random_svg(filename)
