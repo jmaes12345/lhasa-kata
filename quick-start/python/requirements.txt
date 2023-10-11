@@ -1,0 +1,5 @@
+xmltodict~=0.13.0
+beautifulsoup4~=4.12.2
+svgwrite~=1.4.3
+lorem~=0.1.1
+setuptools~=65.5.1
