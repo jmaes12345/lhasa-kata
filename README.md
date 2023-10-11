@@ -33,7 +33,10 @@ The resulting categories in our workflow match the ones for the real classificat
 
 Each example file is a simple example for each of the paths and has an expected category. The test data files are for checking your code “in the wild” with more complex objects.
 
-For simplicity, the colours used to start with will be named, as will shapes.
+For simplicity, the colours used will be named, as will shape elements. For example:
+* color uses "red" rather than "#FF0000".
+* circles use "circle" rather than "ellipsis" or "path".
+* rectangles use "rect" rather than "polygon" or "path".
 
 The workflow looks like this:
 
@@ -51,11 +54,13 @@ a)	Pass in your input file/folder to your code
 b)	Read the contents of your input file
 c)	Check for any red circles
 
+#### _There are some quick start helper projects for Python, JavaScript and Java in the repo._
+
 Part A is a common task required in software development, and there will be plenty of help for this available online if required.
 
 There are a few options you could take for part B – either reading the file manually to parse the components present or using a library to read the file for you. To allow you to focus on the logic of the workflow rather than file reading, I would recommend using a library if possible. Some good libraries would be:
 *	For Python, [Beautiful Soup](https://pypi.org/project/beautifulsoup4/) or [svgelements](https://pypi.org/project/svgelements/)
-*	For JavaScript, [svg-parser](https://www.npmjs.com/package/svg-parser)
+*	For JavaScript, [svg-parser](https://www.npmjs.com/package/svg-parser) or [xml2js](https://www.npmjs.com/package/xml2js)
 *	For Java, [svgSalamander](https://central.sonatype.com/artifact/guru.nidi.com.kitfox/svgSalamander)
 
 Once your code can read in the files, now you’re ready for part C – the first part of the workflow!
