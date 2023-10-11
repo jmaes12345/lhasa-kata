@@ -29,7 +29,7 @@ const determineCategory = async (file) => {
 };
 
 // Move the SVG file to its respective sub-folder based on its category
-const moveFileToSubFolder = async (file, category) => {
+const copyFileToSubFolder = async (file, category) => {
     const oldPath = path.join(baseDir,'input', file);
 
     //default folder name to unclassified
@@ -51,9 +51,11 @@ const moveFileToSubFolder = async (file, category) => {
         fs.mkdirSync(path.join(baseDir, 'output', catfolder));
     }
 
-    // Move the file
-    fs.renameSync(oldPath, newPath);
-    //console.log(`Moved ${file} to ${catfolder} folder.`);
+    // Copy the file
+    fs.copyFile(oldPath, newPath, (err) => {
+        if (err) throw err;
+        console.log(`Copied ${file} to ${catfolder} folder.`);
+    });
 };
 
 // Main function to process each SVG file
@@ -61,7 +63,7 @@ const processSVGFiles = async () => {
     const svgFiles = readSVGFiles();
     svgFiles.forEach(async file => {
         const category = await determineCategory(file);
-        moveFileToSubFolder(file, category);
+        copyFileToSubFolder(file, category);
     });
 };
 
