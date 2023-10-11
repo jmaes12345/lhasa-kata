@@ -140,9 +140,14 @@ public class SvgClassifierIfElse
 
 	private boolean anyShapeOpacityGreaterThan(double opacity, List<SVGElement> elements) {
 		for (SVGElement o : elements) {
-			var svgOpacity = o.getPresAbsolute("opacity").getDoubleValue();
-			if (svgOpacity > opacity) {
-				return true;
+			var svgOpacity = o.getPresAbsolute("opacity");
+			if (svgOpacity != null)
+			{
+				var doubleSvgOpacity = svgOpacity.getDoubleValue();
+				if (doubleSvgOpacity > opacity)
+				{
+					return true;
+				}
 			}
 		}
 		return false;
