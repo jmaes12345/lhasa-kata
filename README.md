@@ -50,20 +50,20 @@ The first decision point asks if there are “any red circles”.
 *	If no, continue.
 
 To be able to answer this question, we need to:
-a)	Pass in your input file/folder to your code
-b)	Read the contents of your input file
-c)	Check for any red circles
+- (a)	Pass in your input file/folder to your code
+- (b)	Read the contents of your input file
+- (c)	Check for any red circles
 
 #### _There are some quick start helper projects for Python, JavaScript and Java in the [repo](https://github.com/jmaes12345/lhasa-kata/tree/main/quick-start)._
 
-Part A is a common task required in software development, and there will be plenty of help for this available online if required.
+Part (a) is a common task required in software development, and there will be plenty of help for this available online if required.
 
-There are a few options you could take for part B – either reading the file manually to parse the components present or using a library to read the file for you. To allow you to focus on the logic of the workflow rather than file reading, I would recommend using a library if possible. Some good libraries would be:
+There are a few options you could take for part (b) – either reading the file manually to parse the components present or using a library to read the file for you. To allow you to focus on the logic of the workflow rather than file reading, I would recommend using a library if possible. Some good libraries would be:
 *	For Python, [Beautiful Soup](https://pypi.org/project/beautifulsoup4/) or [svgelements](https://pypi.org/project/svgelements/)
 *	For JavaScript, [svg-parser](https://www.npmjs.com/package/svg-parser) or [xml2js](https://www.npmjs.com/package/xml2js)
 *	For Java, [svgSalamander](https://central.sonatype.com/artifact/guru.nidi.com.kitfox/svgSalamander)
 
-Once your code can read in the files, now you’re ready for part C – the first part of the workflow!
+Once your code can read in the files, now you’re ready for part (c) – the first part of the workflow!
 
 ### The First Decision in the Tree
 The first example file you have contains the following information:
