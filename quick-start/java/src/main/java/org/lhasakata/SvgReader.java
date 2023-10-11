@@ -46,6 +46,7 @@ public class SvgReader
 	}
 
 	public static List<File> getAllSvgs(String inputLocation) {
+		System.out.println("Reading from 'input' directory: " + inputLocation);
 		var inputDir = new File(inputLocation);
 		if (!inputDir.exists()) {
 			//inputDir.mkdirs();

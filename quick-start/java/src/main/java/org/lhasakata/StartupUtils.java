@@ -6,19 +6,20 @@ import java.util.List;
 
 public class StartupUtils
 {
-	static final String ROOT_DIR = "C:/kata-svg";
-	static final String INPUT_FOLDER = ROOT_DIR + "/input";
-	static final String OUTPUT_DIR = ROOT_DIR + "/" + "output";
-	static final String CAT1_DIR = OUTPUT_DIR + "/" + "Cat1";
-	static final String CAT2_DIR = OUTPUT_DIR + "/" + "Cat2";
-	static final String CAT3_DIR = OUTPUT_DIR + "/" + "Cat3";
-	static final String UNCLASSIFIED_DIR = OUTPUT_DIR + "/" + "Unclassified";
-	static final List<String> OUTPUT_DIRS_ALL = List.of(CAT1_DIR, CAT2_DIR, CAT3_DIR, UNCLASSIFIED_DIR);
+	public static String ROOT_DIR = "C:/kata-svg";
+	public static final String INPUT_FOLDER = "input";
+	public static final String OUTPUT_DIR = "output";
+	public static final String CAT1_DIR = OUTPUT_DIR + "/" + "Cat1";
+	public static final String CAT2_DIR = OUTPUT_DIR + "/" + "Cat2";
+	public static final String CAT3_DIR = OUTPUT_DIR + "/" + "Cat3";
+	public static final String UNCLASSIFIED_DIR = OUTPUT_DIR + "/" + "Unclassified";
+	public static final List<String> OUTPUT_DIRS_ALL = List.of(CAT1_DIR, CAT2_DIR, CAT3_DIR, UNCLASSIFIED_DIR);
 	
 	private StartupUtils() {}
 
 	static void checkDirectoriesExist() {
-		File inputDir = checkDirectoryExists(INPUT_FOLDER);
+		checkDirectoryExists(ROOT_DIR);
+		var inputDir = checkDirectoryExists(ROOT_DIR + "/" + INPUT_FOLDER);
 		checkDirContainsSvgs(inputDir);
 	}
 
@@ -40,6 +41,7 @@ public class StartupUtils
 
 	static void removeAllFilesFromOutputDirectory() {
 		OUTPUT_DIRS_ALL.forEach(dir -> {
+			dir = ROOT_DIR + "/" + dir;
 			var file = new File(dir);
 			if (file.exists()) {
 				var contents = file.listFiles();
